@@ -1,0 +1,33 @@
+<!-- Javascript practice and challenges with DOM modification -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>JS DOM paragraph style</title>
+    </head> 
+    <body>
+        <p id ='text'>JavaScript Exercises - w3resource</p> 
+        <div>
+            <button id="jsstyle" onclick="js_style()">Style</button>
+        </div>
+        <form id="form1" onsubmit="getFormvalue()">
+            First name: <input type="text" name="fname" value="David"><br>
+            Last name: <input type="text" name="name" value="Beckham"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+    <script>
+        // modify style of paragraph text 
+        function js_style() {
+            const text = document.getElementById('text');
+            text.style.color = "aliceblue"; 
+            text.style.fontSize = "25px";
+            text.style.fontWeight = "700";
+        }
+        // get values of first and last name from form 
+        function getFormvalue() {
+            let form = document.getElementById(form1); 
+        }
+        
+    </script>
+</html>
