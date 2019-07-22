@@ -8,7 +8,6 @@
 		<meta description="Maggie Shan's personal website to showcase her design and code portfolio">
 		
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:700|Roboto&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" type="text/css" href="index-style.css">
 		<script src="script.js"></script>
 		
@@ -29,44 +28,65 @@
 		<header class="welcome">
 			<div class="welcome-item">
 				<h1>Hi, I'm Maggie Shan,</h1>
-				<div class="container-animate">
-					<h1 id="text-animate">a web developer.</h1>
-				</div>
-				<p> I love designing ideas and solutions that 
-				<strong>come to life!</strong></p>
+				<h1 id="title">a developer.</h1>	
+				<p>I love creating ideas and solutions that <strong>come to life!</strong></strong></p>
 			</div>
 			<div class="welcome-item">
 				<img src="./img/maggie.svg">
 			</div> 
 		</header>	
-		<main id="featured">
-			<a class="featured-item feature1" href="#"></a>
-			<a class="featured-item feature2" href="#"></a>
-			<a class="featured-item feature3" href="#"></a>
-		</main>
-		<h3>Explorations</h3>
-		<section class="more">
-			<div class="more-item">
-				<a href="#design"><img src="./img/projects.svg"></a>
-			</div>
-			<div class="more-item">
-				<a href="#code"><img src="./img/explore.svg"></a>
-			</div>
-			<div class="more-item">
-				<a href="#playground"><img src="./img/resume.svg"></a>
-			</div>
-		</section>
-		<footer>
-			<div id="contact">
-				<h3> Connect with me</h3>
-				<div class="icons">
-					<a href="#email"><img src="./img/email.svg"></a>
-					<a href="#linkedin"><img src="./img/linkedin.svg"></a>
-					<a href="#github"><img src="./img/github.svg"></a>
+		<main>
+			<section class="features">
+				<div class="tabs">
+					<button class="accordian" onclick="togglePanel()">About Me</button>
+					<div class="panel">
+						<p>This is about me</p>
+						<a href="#about">Learn more</a>
+					</div>
+					<button class="accordian" onclick="togglePanel()">Skills</button>
+					<div class="panel">
+						<ul>
+							<li>HTML/CSS/JS</li>
+							<li>Scheme/C/Java </li>
+							<li>Photoshop/Illustrator</li>
+							<li>Sketch/Figma</li>
+						</ul>
+					</div>
+					<button class="accordian" onclick="togglePanel()">Works</button>
+					<div class="panel">
+						<p>Look at my projects</p>
+						<a href="#works">See my projects</a>
+					</div>
 				</div>
-			</div>
-			<small class="copyright">
-			</small>
+				<div class="window"></div>
+				
+			</section>
+			<section class="process">
+				<div class="process-item">
+					<img src="" alt="Research">
+					<p>Research</p>
+				</div>
+				<div class="process-item">
+					<img src="" alt="Practice">
+					<p>Practice</p>
+				</div>
+				<div class="process-item">
+					<img src="" alt="Review">
+					<p>Review</p>
+				</div>
+			</section>
+			<section class="collage">
+				<div class="container">
+					<img src="" alt="">
+					<img src="" alt="">
+					<img src="" alt="">
+					<img src="" alt="">
+					<img src="" alt="">
+				</div>
+			</section>
+		</main>
+		<footer>
+			<small>&copy;Hand coded by Maggie Shan 2019</small>
 		</footer>
 	</body>
 </html> 
