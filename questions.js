@@ -47,5 +47,13 @@ function concatenate(arr1, arr2) {
             i--; 
         }
     } 
+}
 
+// Adds all numbers starting from 1 given a single number
+function addUp(num) {
+    let sum = 0;
+    for (i = 0; i <= num; i++) {
+        sum += i; 
+    }
+    return sum;
 }
