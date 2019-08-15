@@ -26,13 +26,13 @@
         /*Volume Meter*/
         #volumeMeter{
             width: 500px;
-            height: 10px;
-            background-color: black;
+            height: 50px;
+            background-color: darkorchid;
         }
         /*Volume Location Meter*/
         #volumeStatus{
             max-width: 500px;
-            height: 10px;
+            height: 50px;
             background-color: orchid;
         }
         #songSlider{
@@ -48,7 +48,7 @@
     </style>
 </head>
 <body>
-    <audio id="song" width="300" height="32" ontimeupdate="updateTime()" controls><source src="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/Audio/rj-icw-01%20(1).mp3" type="audio/mp3" /></audio>
+    <audio id="song" width="300" height="32" ontimeupdate="updateTime()" controls src="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/Audio/rj-icw-01%20(1).mp3" type="audio/mp3"></audio>
     <div id="songPlay" onclick="play('song')"></div>
     <div id="songPause" onclick="pause()"></div>
     <div id="songPlayPause" onclick="playPause('song')"></div>
