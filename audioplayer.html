@@ -1,0 +1,331 @@
+<!-- Customized audio player with javascript, credit to tutorial:https://www.webslake.com/article/creating-an-audio-player-using-html-css-and-jquery/  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Podcast</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/1e8b7421fa.js"></script>
+</head>
+<body>
+  <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #logo {
+          width: 600px;
+          height: 200px;
+        }
+        #title {
+            color: #295d97;
+            width: 80%;
+            font-size: 1rem;
+            margin: 40px auto 10px auto;
+        }
+        #playPause,#sArea,#aTime,#aPlayed,#aTotal {
+            display:table-cell;
+            vertical-align:middle;
+        }
+        #player,#aTm {
+            display:table;
+            width:100%;
+        }
+        #playerCover {
+            width:80%;
+            margin:0 auto;
+            background-color:#002e62;
+            box-shadow: 0px 0px 10px #adadad;
+            border-radius: 4px;
+        }
+        #insTime {
+            position: absolute;
+            top: -37px;
+            padding: 5px 7px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #000;
+            border-radius: 4px;
+            display:none;
+        }
+        #playPause {
+            width:18px;
+        }
+        #aTime {
+            width: 100px;
+            font-size:14px;
+        }
+        #aPlayed {
+            border-right: 1px solid #295d97;
+        }
+        #playPause,#aTime {
+            text-align:center;
+            color:#fff;
+            padding:15px;
+        }
+        #playPause:hover {
+            background-color: #295d97;
+        }
+        #sHover {
+            position: absolute;
+            top:0px;
+            left: 0px;
+            height:48px;
+            background-color: #fff;
+            width: 0px;
+            z-index: 3;
+            opacity: 0.3;
+        }
+        #sArea,#seekBar {
+            position:relative;
+        }
+        #sArea {
+            height:48px;
+        }
+        #seekBar {
+            width: 0px;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            height:18px;
+            padding: 15px 0px;
+            left: 0px;
+            color: #fff;
+            z-index: 2;
+            background-color: #295d97;
+        }
+        #trackName {
+            padding-left: 15px;
+            color: #6ea8d8;
+            z-index: 1;
+        }
+        #playPause,#sArea {
+            cursor:pointer;
+        }
+        #seName {
+            padding-left:15px;
+            white-space: pre;
+        }   
+        #podcasts {
+          margin: 20px auto;
+          width: 80%;
+        }
+        #podcasts ul {
+          padding: 0;
+        }
+        .playlist li {
+          list-style: none;
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+          width: 99%;
+          padding: 5px;
+        }
+        .playlist li:hover, .playlist li:focus {
+          outline: 0;
+          cursor: pointer;
+          background-color: #e9e9e9;
+        }
+        .playlist li:active {
+          background-color: #cccccc;
+        }
+        .playlist img {
+          width: 150px;
+          height: 145px;
+        }
+        ul#podcasts {
+          padding-inline-start: 0;
+        }
+        .playlist li p {
+          margin-left: 20px;
+        }
+  </style>
+  <div class="playlist">
+      <div class="container">
+          <div id="playerCover">
+            <div id="player">
+                <div id="playPause"><i class="fa fa-play" aria-hidden="true"></i></div>
+                <div id="sArea">
+                    <div id="insTime">00:00</div>
+                    <div id="sHover"></div>
+                    <div id="seekBar">
+                        <div id="seName">Now Playing...</div>
+                    </div>
+                    <div id="trackName">Now Playing...</div>
+                </div>
+                <div id="aTime">
+                    <div id="aTm">
+                        <div id="aPlayed">00:00</div>
+                        <div id="aTotal">00:00</div>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div id="podcasts">
+        <ul>
+          <li data-link="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/Audio/rj-icw-01%20(1).mp3">
+            <img src="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/PublishingImages/Pages/In-Conversation-With-Podcast/pallison_LThumb.jpg" alt="Calvin Harris">
+            <p>
+              Summer by Calvin Harris 
+            </p>
+          </li>
+          <li data-link="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/Audio/rj-icw-02.mp3">
+            <img src="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/PublishingImages/Pages/In-Conversation-With-Podcast/jdavies_LThumb.jpg" alt="Billie Eilish">
+            <p>
+              Bad Guy by Billie Eilish 
+            </p>
+          </li>
+          <li data-link="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/Audio/icw-03.mp3">
+            <img src="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/PublishingImages/Pages/In-Conversation-With-Podcast/rirousseau_LThumb.jpg" alt="Post Malone">
+            <p>
+              Wow by Post Malone
+            </p>
+          </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    // Audio Player 
+    $(function() {
+      var audio, playPause = $('#playPause'), sArea = $('#sArea'), seekBar = $('#seekBar'), tProgress = $('#aPlayed'), tTime = $('#aTotal'), sHover = $('#sHover'), seekT, seekLoc, insTime = $('#insTime');
+          
+      // 1. Function to handle play and pause actions
+      function play_pause() {
+          if(audio.paused) {
+              audio.play();
+              $('#playPause i').attr('class','fa fa-pause');
+          } else {
+              audio.pause();
+              $('#playPause i').attr('class','fa fa-play');
+          }
+      }
+
+      // 2. Function to show hover layer ( Hover layer shows play time at the place of hover )
+      function showHover(event) {
+          var seekBarPos = seekBar.offset(); 
+          seekT = event.clientX - seekBarPos.left;
+          seekLoc = audio.duration * (seekT / sArea.outerWidth());
+
+          sHover.width(seekT);
+
+          var cM = seekLoc / 60;
+
+          var ctMinutes = Math.floor(cM);
+          var ctSeconds = Math.floor(seekLoc - ctMinutes * 60);
+
+          if( (ctMinutes < 0) || (ctSeconds < 0) )
+              return;
+
+          if(ctMinutes < 10)
+              ctMinutes = '0'+ctMinutes;
+
+          if(ctSeconds < 10)
+              ctSeconds = '0'+ctSeconds;
+
+          insTime.text(ctMinutes+':'+ctSeconds).css({'left':seekT,'margin-left':'-25px'}).fadeIn(0);
+      }
+          
+      // 3. Function to hide hover layer
+      function hideHover() {
+          sHover.width(0);
+          insTime.text('00:00').css({'left':'0px','margin-left':'0px'}).fadeOut(0);
+      }
+
+      // Add eventListener for playing audio from a particular time interval when there is click on div#sArea element ( Area between play/pause button and timer )
+      
+      sArea.on('click',function() {
+          audio.currentTime = seekLoc;
+          seekBar.width(seekT);
+          hideHover();
+      })
+
+      // 4. Function to update the time upto which audio has been played currently
+      function updateCurrTime() {
+          var curMinutes = Math.floor(audio.currentTime / 60);
+          var curSeconds = Math.floor(audio.currentTime - curMinutes * 60);
+
+          var durMinutes = Math.floor(audio.duration / 60);
+          var durSeconds = Math.floor(audio.duration - durMinutes * 60);
+
+          var playProgress = (audio.currentTime / audio.duration) * 100;
+
+          if(curMinutes < 10)
+              curMinutes = '0'+curMinutes;
+
+          if(curSeconds < 10)
+              curSeconds = '0'+curSeconds;
+
+          if(durMinutes < 10)
+              durMinutes = '0'+durMinutes;
+
+          if(durSeconds < 10)
+              durSeconds = '0'+durSeconds;
+
+          // Show the play progress in the player ui
+          tProgress.text(curMinutes+':'+curSeconds);
+
+          // Update the total time duration of audio file in the player ui
+          tTime.text(durMinutes+':'+durSeconds);
+
+          // Set the seekbar width
+          seekBar.width(playProgress+'%');
+
+          // If audio has been played to its full length, then
+          // 1. Show the play icon
+          // 2. Set the seekbar width to 0
+          // 3. Update the play progress to 00:00
+          if( playProgress == 100 ) {
+              $('#playPause i').attr('class','fa fa-play');
+              seekBar.width(0);
+              tProgress.text('00:00');
+          }
+      }
+
+      // 5. Main function for making the audio player functional
+      function initPlayer(source) {
+          // Create an audio object
+          audio = new Audio();
+          
+          // Add the URL of audio source file to be played
+          audio.src = source;
+
+          // Set looping to false to avoid audio from playing again
+          audio.loop = false;
+      }
+       // Play or pause the audio when there is click on div#playPause element ( play/pause button )
+       playPause.on('click',play_pause); 
+
+       // List of Episodes 
+       var player = document.getElementById('player');
+       var podcasts = document.querySelector('#podcasts').querySelectorAll('li');
+       var seName = document.getElementById('seName');
+       var trackName = document.getElementById('trackName');
+
+       function playPodcast() {
+         var link = this.getAttribute('data-link');    
+         seName.innerText = this.innerText;
+         trackName.innerText = this.innerText;
+
+         initPlayer(link);
+         play_pause();
+
+         // When there is hover on div#sArea element, then show the hover layer.
+         // div#sArea element => Area between play/pause button and player timer
+         sArea.mousemove(function(event){ showHover(event); });
+
+         // When mouse is removed from div#sArea element hide the hover layer
+         sArea.mouseout(hideHover);
+
+         // When current played time is updated ( it is updated when audio is playing ), then update the current time text in player UI
+         $(audio).on('timeupdate',updateCurrTime);
+       }
+       for (i = 0; i < podcasts.length; i++) {
+         podcasts[i].addEventListener('click', playPodcast);
+         podcasts[i].setAttribute('tabindex', '0');
+       }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!-- Small playlist design idea that helped build css and js skills -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="podcast.css">
+    <title>Playlist</title>
+    
+    <style>
+      body {
+      background-color: #F9EED6;
+      font-family: 'Roboto Condensed', sans-serif;
+      text-align: center;
+      }
+      h1 {
+          margin-top: 40px;
+          color: white;
+          font-size: 2rem;
+      }
+      .frontborder {
+          background: linear-gradient(120deg, #CCB888 40%, black);
+          border-radius: 20px;
+          width: 360px;
+          height: 710px;
+          position: absolute;
+          left: 19.4%;
+          margin-top: 65px;
+          padding: 30px;
+          z-index: -3;
+          box-shadow: 10px 10px 25px #99875f;
+      }
+      .reflection {
+          position: absolute;
+          overflow: hidden;
+          left: 25%;
+          top: -1.75%;
+          width: 160px;
+          height: 770px;
+          transform: skewX(-20deg);
+          background-color: white;
+          opacity: 0.25;
+          z-index: 4;
+      }
+      .frontPhone {
+          background-color: #f7fbff;
+          border-radius: 20px;
+          width: 350px;
+          height: 700px;
+          position: absolute;
+          left: 21%;
+          margin-top: 78px;
+          padding: 20px;
+          z-index: -2;
+      }
+      .notch { 
+          width: 200px;
+          height: 30px;
+          border-radius: 0 0 30px 30px;
+          background: linear-gradient(120deg, #CCB888, #99875f);
+          position: relative;
+          left: 23%;
+          top: -4.5%;
+          z-index: 2;
+      }
+      .background {
+          background: linear-gradient(50deg, #FFB7AF 50%, #FFD389);
+          height: 150px;
+          width: 390px;
+          border-radius: 20px 20px 0 0;
+          position: absolute;
+          right: -0%;
+          bottom: 80%;
+          z-index: -1;
+      }
+      .circle {
+          width: 200px;
+          height: 150px;
+          border-radius: 50%;
+          background:  linear-gradient(50deg, #FFB7AF 15%, #FFD389);
+          position: absolute;
+          left: 25%;
+          top: 7%;
+          z-index: -2;
+      }
+      .circle1 {
+          width: 150px;
+          height: 100px;
+          border-radius: 50%;
+          background: #FFB7AF;
+          position: absolute;
+          left: 3%;
+          top: 10%;
+          z-index: -2;
+      }
+      .circle2 {
+          width: 150px;
+          height: 100px;
+          border-radius: 50%;
+          background: #FFB7AF;
+          position: absolute;
+          left: 61.5%;
+          top: 10%;
+          z-index: -2;
+      }
+      .playlist {
+          margin-top: 95px;
+          margin-left: 7px;
+      }
+      li {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          list-style-type: none;
+          padding: 15px;
+          margin-bottom: 5px;
+
+      }
+      li:hover {
+          box-shadow: 0px -5px 5px #FFB7AF,
+                      0px 5px 5px #FFD389;
+      }
+      li:active {
+          transform: translateY(5px);
+          transition: 0.1s;
+      }
+      .text { 
+          position: absolute;
+          z-index: 5;
+      }
+      .cover {
+          width: 40px;
+          height: 40px;
+          background: linear-gradient(50deg, #FFB7AF 50%, #FFD389);
+          margin-right: 10px;
+      }
+      .play {
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 10px 0 10px 16.6px;
+          border-color: transparent transparent transparent #99875f;
+          margin-right: 20px;
+      }
+      .pause {
+          width: 10px;
+          height: 10px;
+          background-color: #99875f;
+          position: absolute;
+          left: 11%;
+      }
+      .nowPlaying {
+          position: relative;
+          top: 76%;
+      }
+      .nowPlaying p:nth-child(1) {
+          font-size: 1rem;
+      }
+      .playingText {
+          margin-bottom: 30px;
+      }
+      .nowPlaying p {
+          font-size: 1.5rem;
+          font-weight: 700;
+          line-height: 1px;
+          color: #FFB7AF;
+      }
+      audio {
+          width: 375px;
+          position: relative;
+          right: 2.75%;
+      }
+
+      /* Back phone */
+      .backborder {
+          background: linear-gradient(120deg, #CCB888 40%, black);
+          border-radius: 20px;
+          width: 265px;
+          height: 610px;
+          position: absolute;
+          left: 60.5%;
+          top: 7%;
+          margin-top: 65px;
+          padding: 30px;
+          z-index: -5;
+          box-shadow: 10px 10px 25px #7c6c48;
+      }
+      .backreflection {
+          position: absolute;
+          overflow: hidden;
+          left: 25%;
+          top: -2.25%;
+          width: 130px;
+          height: 670px;
+          transform: skewX(-20deg);
+          background-color: white;
+          opacity: 0.25;
+          z-index: 2;
+          border-radius: 0 33px 0 0;
+      }
+      .backPhone {
+          border-radius: 20px;
+          width: 250px;
+          height: 570px;
+          position: absolute;
+          top: 8%;
+          left: 61%;
+          margin-top: 70px;
+          padding: 30px;
+          z-index: -5;
+          background-color: #f7fbff;
+      }
+      .backPosition {
+          left: 9%;
+          top: -7.5%;
+      }
+      .topbackground {
+          height: 50px;
+          width: 310px;
+          position: absolute;
+          top: -1%;
+          left: 0%;
+          background: linear-gradient(50deg, #FFB7AF 50%, #FFD389);
+          border-radius: 20px 20px 0 0;
+
+      }
+      p.backscreen {
+          margin-top: 40px;
+          color: #FFB7AF;
+          font-weight: 700;
+      }
+      .album {
+          width: 230px;
+          height: 250px;
+          background: linear-gradient(50deg, #FFB7AF 50%, #FFD389);
+          position: absolute;
+          left: 12%;
+          margin-top: 10px;
+          box-shadow: -1px 10px 5px #dde7ee;
+          z-index: 3;
+      }
+      .album:hover { 
+          transform: translateY(10px);
+          transition: 0.5s;
+      }
+      .a1 {
+          position: absolute;
+          z-index: -6;
+          left: 25.75%;
+          bottom: 39%;
+          height: 220px;
+          background: linear-gradient(50deg, #f3998f 50%, #e9bc6f);
+      }
+      .a2 {
+          position: absolute;
+          z-index: -6;
+          left: -0.25%;
+          bottom: 39%;
+          height: 220px;
+          background: linear-gradient(50deg, #f3998f 50%, #e9bc6f);
+      }
+      .bar {
+          position: absolute;
+          top: 67.75%;
+          right: 10%;
+          height: 7px;
+          width: 250px;
+          border: 2px solid #f3998f;
+          z-index: 2;
+      }
+      .progress {
+          height: 7px;
+          width: 170px;
+          background: linear-gradient(50deg, #f3998f 50%, #e9bc6f);
+          position: absolute;
+          top: 68%;
+          right: 37%;
+      }
+      .playback {
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 20px 0 20px 26.6px;
+          border-color: transparent transparent transparent #99875f;
+          margin-right: 20px;
+          position: absolute;
+          top: 73%;
+          left: 45%;
+          z-index: 4;
+      }
+      .playback:hover {
+          border-color: transparent transparent transparent #f3998f;
+          transition: 0.5s;
+      }
+      .playback:active {
+          transition: 0.5s;
+          transform: translateY(5px);
+      }
+      .arrow1 {
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 10px 0 10px 16.6px;
+          border-color: transparent transparent transparent #99875f;
+          position: absolute;
+          top: 75%;
+          left: 65%;
+      }
+      .arrow2 {
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 10px 0 10px 16.6px;
+          border-color: transparent transparent transparent #99875f;
+          position: absolute;
+          top: 75%;
+          left: 68%;
+      }
+      .prev > .arrow1 {
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+          position: absolute;
+          top: 75%;
+          left: 23%;
+      }
+      .prev > .arrow2 {
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+          position: absolute;
+          top: 75%;
+          left: 26%;
+      }
+      .backbottom {
+          width: 311px;
+          height: 80px;
+          border-radius: 50% 50% 20px 20px;
+          background: linear-gradient(50deg, #FFB7AF 50%, #FFD389);
+          position: absolute;
+          top: 87.5%;
+          left: -0.5%;
+      }
+    </style>
+</head>
+<body>
+    <div class="frontborder"></div>
+    <div class="frontPhone">
+        <div class="reflection"></div>
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="background"></div>
+            <div class="circle"></div>
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="text">
+                <div class="title"><h1>TOP 10 SUMMER SONGS</h1></div>
+                <div class="playlist">
+                    <div class="ul">
+                        <li onclick="changeName(); changeSong();">
+                            <div class="play"></div>
+                            <div class="cover"></div>
+                            <p class="description">SUMMER PARADISE by Simple Plan</p>
+                        </li>
+                        <li onclick="changeName(); changeSong();">
+                            <div class="play"></div>
+                            <div class="cover"></div>
+                            <p class="description">SOBER by Childish Gambino</p>
+                        </li>
+                        <li onclick="changeName(); changeSong();">
+                            <div class="play"></div>
+                            <div class="cover"></div>
+                            <p class="description">SUMMER NIGHTS by John Travolta</p>
+                        </li>
+                        <li onclick="changeName(); changeSong();">
+                                <div class="play"></div>
+                                <div class="cover"></div>
+                                <p class="description">SUMMER by Calvin Harris</p>
+                            </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nowPlaying">
+            <div class="playingText">
+                <p>NOW PLAYING:</p>
+                <p id="current">SUMMER SONG by Sunshine</p>
+            </div>
+            <audio id="song" controls="" autoplay="" name="media"><source src="https://rjnet.rjlca.com/en-CA/resources_dev/marketing/Audio/rj-03.mp3" type="audio/mpeg"></audio>
+        </div>
+    </div>
+    <div class="backborder"></div>
+    <div class="backPhone">
+        <div class="notch backPosition"></div>
+        <div class="screen">
+            <div class="topbackground"></div>
+            <p class="backscreen">SUMMER SONG by Sunshine</p>
+            <div class="album"></div>
+            <div class="album a1"></div>
+            <div class="album a2"></div>
+        </div>
+        <div class="nowPlayingBack">
+            <div class="bar"></div>
+            <div class="progress"></div>
+            <div class="playback"></div>
+            <div class="next">
+                <div class="arrow1"></div>
+                <div class="arrow2"></div>
+            </div>
+            <div class="prev">
+                <div class="arrow1"></div>
+                <div class="arrow2"></div>
+            </div>
+        </div>
+        <div class="backbottom"></div>
+        <div class="backreflection"></div>
+    </div>
+    <script>
+        function changeName() {
+            document.getElementById('current').innerHTML = event.target.textContent;
+        }
+        function changeSong(num) {
+            var song = document.getElementById('song');
+            switch(num) { //sources not yet added
+                case 1:
+                    song.src = "";
+                    break; 
+                case 2:
+                    song.src = "";
+                    break; 
+                case 3:
+                    song.src = "";
+                    break; 
+                case 4:
+                    song.src = "";
+                    break; 
+            }
+        }
+    </script>
+</body>
+</html>

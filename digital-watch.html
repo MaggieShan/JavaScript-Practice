@@ -1,0 +1,145 @@
+<!-- Project inspired by "https://freefrontend.com/css-clocks/" to improve css and js skills
+Check out my codepen to see the css and preview of it!  -->
+<!DOCTYPE html> 
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="digital-watch.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+		<title>Digital Watch</title>
+	</head>
+	<body> 
+		<section class="digital-watch">
+			<div class="reflection"></div>
+			<div class="clockface">
+				<div id="content">
+					<div id="sky">
+						<div id="gear1"></div>
+						<div id="gear2"></div>
+						<div id="sun"></div>
+						<div id="moon">
+							<div class="light"></div>
+							<div class="dark"></div>
+						</div>
+						<div class="stars">
+							<div class="s s1"></div>
+							<div class="s s2"></div>
+							<div class="s s3"></div>
+							<div class="s s4"></div>
+							<div class="s s5"></div>
+							<div class="s s6"></div>
+							<div class="s s7"></div>
+							<div class="s s8"></div>
+							<div class="s s9"></div>
+							<div class="s s10"></div>
+							<div class="s s11"></div>
+							<div class="s s12"></div>
+						</div>
+					</div>
+					<div class="timer">
+						<p id="time">00:00:00:000</p>
+						<button id="toggleTime" onclick="toggleTimer(); toggleAnimation()">play</button>
+						<button id="reset" onclick="resetTimer(); resetAnimation()" >clear</button>
+					</div>
+				</div>
+			</div>
+			<div class="strap"></div>
+			<div class="dial" onclick="toggleScreen()"></div>
+		</section>
+		<script>
+			// Power screen 
+			function toggleScreen() {
+				var screen = document.getElementById("content");
+				if(screen.style.display == "none") {
+					screen.style.display = "block";
+				} else {
+					screen.style.display = "none";
+				}
+			}
+
+			// Timer 
+			var timerBttn = document.getElementById("toggleTime");
+			var time = document.getElementById("time");
+			var startTime;
+			var updatedTime;
+			var difference; 
+			var tInterval; 
+			var savedTime; 
+			var paused = 0;
+			var running = 0; 
+			function toggleTimer() {
+				if (!running) {
+					startTime = new Date().getTime();
+					tInterval = setInterval(getShowTime, 1);
+					paused = 0;
+					running = 1;
+					timerBttn.innerText = "pause";
+
+				} else if (!paused) {
+					clearInterval(tInterval);
+					savedTime = difference; 
+					paused = 1; 
+					running = 0; 
+					timerBttn.innerText = "play";
+				} else return;
+			}
+			function resetTimer() {
+				clearInterval(tInterval);
+				savedTime = 0;
+				difference = 0;
+				paused = 0;
+				running = 0;
+				time.innerHTML = "00:00:00:000"
+			}
+			function getShowTime() {
+				updatedTime = new Date().getTime();
+				if (savedTime) {
+					difference = (updatedTime - startTime) + savedTime; 
+				} else { 
+					difference = updatedTime - startTime; 
+				}
+				var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+				var secs = Math.floor((difference % (1000 * 60)) / 1000);
+				var millisecs = Math.floor((difference % (1000 * 60)) / 100);
+
+				hours = (hours < 10) ? "0" + hours: hours; 
+				mins = (mins < 10) ? "0" + mins: mins; 
+				secs = (secs < 10) ? "0" + secs: secs;
+				millisecs = (millisecs < 100) ? (millisecs < 10) ? "00" + millisecs : "0" + millisecs: millisecs;
+				time.innerHTML = hours + ":" + mins + ":" + secs + ":" + millisecs; 
+			}
+			// Animation
+			var sky = document.getElementById("sky");
+			var sun = document.getElementById("sun");
+			var moon = document.getElementById("moon");
+			var moonDark = document.querySelector(".dark")
+			var gear1 = document.getElementById("gear1");
+			var gear2 = document.getElementById("gear2");
+			function toggleAnimation() {
+				if(running) {
+					sky.style.animation = "sunset 10s infinite";
+					moonDark.style.animation = "sunset 10s infinite";
+					gear1.style.animation = "sunset 10s infinite";
+					gear2.style.animation = "sunset 10s infinite";
+					sun.style.animation = "sunOrbit 10s infinite";
+					moon.style.animation = "moonOrbit 10s infinite";
+				} else {
+					sky.style.animationPlayState = "paused";
+					moonDark.style.animationPlayState = "paused";
+					gear1.style.animationPlayState = "paused";
+					gear2.style.animationPlayState = "paused";
+					sun.style.animationPlayState = "paused";
+					moon.style.animationPlayState = "paused";
+				}
+			}
+			function resetAnimation() {
+				sky.style.animation = "none";
+				moonDark.style.animation = "none";
+				gear1.style.animation = "none";
+				gear2.style.animation = "none";
+				sun.style.animation = "none";
+				moon.style.animation = "none";
+			}
+		</script>
+	</body>
+</html>

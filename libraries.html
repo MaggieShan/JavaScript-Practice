@@ -1,0 +1,42 @@
+<!-- Website created to experiment with different available libraries -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>I love libraries</title>
+</head>
+<body>
+    <div class="step"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+    <div id="chart"></div>
+    <div class="" id="myCanvas"></div>
+
+    <!-- scrollama lib -->
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+    <script src="https://unpkg.com/scrollama"></script> 
+    <!-- apexcharts lib -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- roughjs lib -->
+    <script src="https://rawgit.com/pshihn/rough/master/dist/rough-async.js"></script>
+    <script>
+        var options = {
+            chart: {
+            type: 'bar'
+            },
+            series: [{
+            name: 'sales',
+            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+            }],
+            xaxis: {
+            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+            }
+        }
+        
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+</body>
+</html>
